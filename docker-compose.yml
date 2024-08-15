@@ -1,0 +1,14 @@
+version: "3.11" # docker compose API version 3.11 , 파이썬 버전아니다
+services:
+  app:
+    build:
+      context: .
+      args:
+        - DEV=true
+    ports:
+      - 8000:8000
+    volumes:
+      - ./app:/app
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+
+# 장고 - 엔진엑스 - 지유니콘 등등 세팅가능

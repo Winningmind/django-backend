@@ -1,0 +1,26 @@
+name: Checks
+
+on: [push] # trigger / 코드 push할때 실행
+
+jobs: # 실행 workflow management
+  test-lint:
+    name: Test and Lint
+    runs-on: ubuntu-20.04 # 작업환경
+    steps: # 작업단계 / steps : 순서대로 실행이된다.
+      # github actions 에 등록한 secret 정보로 도커에 접근하게 해주는 작업 
+      - name: Login in to Docker hub # 도커허브에 로그인
+        uses: docker/login-action@v1 # actions 에서 docker container 로 접근하기 위한 패키지 설치
+        with:
+          username: ${{ secret.DOCKERHUB_USER }}
+          password: ${{ secret.DOCKERHUB_TOKEN }}
+      - name: Checkout # 우리 코드를 받아온다
+        uses: actions/checkout@v2 # 깃헙에 등록돼있는 기능이다 사용하는것뿐.
+      - name: Test # 받아온 코드를 가지고 테스트코드를 실행한다
+        run: docker-compose run --rm app sh -c "python manage.py test"
+      - name: Lint(Flake8) # Lint 실행
+        run: docker-compose run --rm app sh -c "flake8"
+
+# steps: Login in to Docker hub -> Checkout -> Test - Lint 순서대로 실행
+
+# jenkins
+# github actions => 설치필요 X (무료)
