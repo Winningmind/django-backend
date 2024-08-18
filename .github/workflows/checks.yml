@@ -11,8 +11,8 @@ jobs: # 실행 workflow management
       - name: Login in to Docker hub # 도커허브에 로그인
         uses: docker/login-action@v1 # actions 에서 docker container 로 접근하기 위한 패키지 설치
         with:
-          username: ${{ secret.DOCKERHUB_USER }}
-          password: ${{ secret.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout # 우리 코드를 받아온다
         uses: actions/checkout@v2 # 깃헙에 등록돼있는 기능이다 사용하는것뿐.
       - name: Test # 받아온 코드를 가지고 테스트코드를 실행한다
