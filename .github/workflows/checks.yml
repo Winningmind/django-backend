@@ -16,9 +16,9 @@ jobs: # 실행 workflow management
       - name: Checkout # 우리 코드를 받아온다
         uses: actions/checkout@v2 # 깃헙에 등록돼있는 기능이다 사용하는것뿐.
       - name: Test # 받아온 코드를 가지고 테스트코드를 실행한다
-        run: docker-compose run --rm app sh -c "python manage.py test"
+        run: docker compose run --rm app sh -c "python manage.py test"
       - name: Lint(Flake8) # Lint 실행
-        run: docker-compose run --rm app sh -c "flake8"
+        run: docker compose run --rm app sh -c "flake8"
 
 # steps: Login in to Docker hub -> Checkout -> Test - Lint 순서대로 실행
 
